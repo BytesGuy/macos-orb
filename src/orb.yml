@@ -42,15 +42,15 @@ commands:
             - run:
                 name: Installing Homebrew packages << parameters.packages >>
                 command: 
-    brew-cask-install:
+    brew-cask:
         parameters:
             package:
-                description: "Packages to install"
+                description: "Cask to install"
                 type: string
         steps:
             - run:
                 name: Installing Homebrew Cask << parameters.package >>
-                command: 
+                command: brew cask install << parameters.package >>
     fastlane:
         parameters:
             lane:
@@ -108,7 +108,6 @@ commands:
                         key: 1-gems-{{ checksum "Gemfile.lock" }}
                         paths:
                             - vendor/bundle
-                        
             - unless:
                 condition: << parameters.cache >>
                 steps:
