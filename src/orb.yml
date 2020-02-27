@@ -89,3 +89,29 @@ commands:
                 steps:
                     - store_artifacts:
                         path: ~/Library/Logs/DiagnosticReports
+    gemfile-install:
+        parameters:
+            cache:
+                description: "Enables retrieving Gems from the cache and saving Gems to cache"
+                type: boolean
+                default: true
+        steps:
+            - when:
+                condition: << parameters.cache >>
+                steps:
+                    - restore_cache:
+                        name: "Restoring Gems from cache"
+                        key: 1-gems-{{ checksum "Gemfile.lock" }}
+                    - run: bundle check || bundle install --path vendor/bundle
+                    - save_cache:
+                        name: "Saving Gems to cache"
+                        key: 1-gems-{{ checksum "Gemfile.lock" }}
+                        paths:
+                            - vendor/bundle
+                        
+            - unless:
+                condition: << parameters.cache >>
+                steps:
+                    - run:
+                        name: "Installing Gems"
+                        command: bundle install --path vendor/bundle
