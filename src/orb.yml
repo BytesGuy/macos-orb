@@ -64,6 +64,10 @@ commands:
                 description: "Upload Fastlane output directory automatically"
                 type: boolean
                 default: true
+            store-simulator-crash-logs:
+                description: "Upload simulator crash logs automatically"
+                type: boolean
+                default: true
         steps:
             - run:
                 name: "Fastlane: Running the << parameters.lane >> lane"
@@ -80,3 +84,8 @@ commands:
                 steps:
                     - store_test_results:
                         path: output/scan
+            - when:
+                condition: << parameters.store-simulator-crash-logs >>
+                steps:
+                    - store_artifacts:
+                        path: ~/Library/Logs/DiagnosticReports
