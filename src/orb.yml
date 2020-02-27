@@ -41,6 +41,7 @@ commands:
         steps:
             - run:
                 name: Installing Homebrew packages << parameters.packages >>
+                command: 
     brew-cask-install:
         parameters:
             package:
@@ -49,6 +50,7 @@ commands:
         steps:
             - run:
                 name: Installing Homebrew Cask << parameters.package >>
+                command: 
     fastlane:
         parameters:
             lane:
@@ -57,16 +59,24 @@ commands:
             store-test-results:
                 description: "Store test results automatically"
                 type: boolean
-            store-artifacts:
-                description: "Upload all artifacts automatically"
+                default: true
+            store-output:
+                description: "Upload Fastlane output directory automatically"
                 type: boolean
+                default: true
         steps:
             - run:
                 name: "Fastlane: Running the << parameters.lane >> lane"
                 command: |
                     FL_OUTPUT_DIR="output" >> $BASH_ENV
                     bundle exec fastlane << parameters.lane >>
-            - store_artifacts: 
-                path: output
-            - store_test_results:
-                path: output/scan
+            - when: 
+                condition: << parameters.store-output >>
+                steps:
+                    - store_artifacts: 
+                        path: output
+            - when:
+                condition: << parameters.store-test-results >>
+                steps:
+                    - store_test_results:
+                        path: output/scan
