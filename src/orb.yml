@@ -1,0 +1,72 @@
+version: 2.1
+
+description: |
+    An orb to help users write macOS jobs more effectively
+
+commands:
+    ruby:
+        parameters:
+            version:
+                description: "Ruby version required"
+                type: string
+        steps:
+            - run:
+                name: Setting Ruby version to << parameters.version >>
+                command: |
+                    RUBYVER="system"
+                    MACOSVER=$(sw_vers -productVersion | awk -F'.' '{print $2}')
+
+                    if [ "<< parameters.version >>" != "system" ]; then
+                        RUBYVER=ruby-<< parameters.version >>
+                    fi
+
+                    if (( $MACOSVER >= 15 )); then
+                        echo "chruby $RUBYVER" >> ~/.bash_profile
+                    else
+                        echo $RUBYVER > ~/.ruby-version
+                    fi
+
+                    echo "Ruby set to version `ruby -v`"
+    brew-install:
+        parameters:
+            packages:
+                description: "Packages to install"
+                type: string
+            auto-update:
+                description: "Disable Homebrew auto updater"
+                type: boolean
+            analytics:
+                description: "Disable Homebrew analytics"
+                type: boolean
+        steps:
+            - run:
+                name: Installing Homebrew packages << parameters.packages >>
+    brew-cask-install:
+        parameters:
+            package:
+                description: "Packages to install"
+                type: string
+        steps:
+            - run:
+                name: Installing Homebrew Cask << parameters.package >>
+    fastlane:
+        parameters:
+            lane:
+                description: "Runs the specified Fastlane lane"
+                type: string
+            store-test-results:
+                description: "Store test results automatically"
+                type: boolean
+            store-artifacts:
+                description: "Upload all artifacts automatically"
+                type: boolean
+        steps:
+            - run:
+                name: "Fastlane: Running the << parameters.lane >> lane"
+                command: |
+                    FL_OUTPUT_DIR="output" >> $BASH_ENV
+                    bundle exec fastlane << parameters.lane >>
+            - store_artifacts: 
+                path: output
+            - store_test_results:
+                path: output/scan
