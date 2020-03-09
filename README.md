@@ -4,4 +4,4 @@ Easily configure your macOS-based jobs on CircleCI while automatically implement
 
 ## Usage
 
-_For full usage guidelines, see the [orb registry listing](https://circleci.com/orbs/registry/orb/bytesguy/macos)
+_For full usage guidelines, see the [orb registry listing](https://circleci.com/orbs/registry/orb/bytesguy/macos)_
