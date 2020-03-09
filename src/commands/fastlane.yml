@@ -1,0 +1,41 @@
+description: |
+    Runs the specified lane with Fastlane
+
+parameters:
+    lane:
+        description: "Runs the specified Fastlane lane"
+        type: string
+    store-test-results:
+        description: "Store test results automatically"
+        type: boolean
+        default: true
+    store-output:
+        description: "Upload Fastlane output directory automatically"
+        type: boolean
+        default: true
+    store-simulator-crash-logs:
+        description: "Upload simulator crash logs automatically"
+        type: boolean
+        default: true
+    #debug upload fastlane folder 
+steps:
+    - run:
+        name: "Fastlane: Running the << parameters.lane >> lane"
+        command: |
+            FL_OUTPUT_DIR="output" >> $BASH_ENV
+            bundle exec fastlane << parameters.lane >>
+    - when: 
+        condition: << parameters.store-output >>
+        steps:
+            - store_artifacts: 
+                path: output
+    - when:
+        condition: << parameters.store-test-results >>
+        steps:
+            - store_test_results:
+                path: output/scan
+    - when:
+        condition: << parameters.store-simulator-crash-logs >>
+        steps:
+            - store_artifacts:
+                path: ~/Library/Logs/DiagnosticReports
