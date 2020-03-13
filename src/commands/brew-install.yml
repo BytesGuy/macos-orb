@@ -14,18 +14,13 @@ parameters:
         type: boolean
         default: true
 steps:
-    - unless:
-        condition: << parameters.auto-update >>
-        steps:
-            - run:
-                name: "Disabling Homebrew Auto Update"
-                command: HOMEBREW_NO_AUTO_UPDATE=1 >> $BASH_ENV
-    - unless:
-        condition: << parameters.analytics >>
-        steps:
-            - run:
-                name: "Disabling Homebrew Analytics"
-                command: HOMEBREW_NO_ANALYTICS=1 >> $BASH_ENV
     - run:
         name: Installing Homebrew packages << parameters.packages >>
-        command: brew install << parameters.packages >>
+        command: |
+            if [ "<< parameters.analytics >>" = false ]; then
+                HOMEBREW_NO_ANALYTICS=1 >> $BASH_ENV
+            fi
+            if [ "<< parameters.auto-update >>" = false ]; then
+                HOMEBREW_NO_AUTO_UPDATE=1 >> $BASH_ENV
+            fi
+            brew install << parameters.packages >>
