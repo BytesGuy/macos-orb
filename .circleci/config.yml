@@ -1,8 +1,11 @@
 version: 2.1
 jobs:
   test-orb:
+    parameters:
+      xcode-version:
+        type: string
     macos:
-      xcode: << matrix.xcode-version >>
+      xcode: << parameters.xcode-version >>
     steps:
       - run: uname -a
 
