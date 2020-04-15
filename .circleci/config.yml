@@ -1,12 +1,8 @@
 version: 2.1
 jobs:
   test-orb:
-    parameters:
-      xcode-version:
-        type: string
-    executor:
-      name: xcode
-      version: << parameters.xcode-version >>
+    macos:
+      xcode: << matrix.xcode-version >>
     steps:
       - run: uname -a
 
@@ -14,7 +10,6 @@ workflows:
   test-workflow:
     jobs:
       - test-orb:
-        name: test-<< matrix.xcode-version >>
         matrix:
           parameters:
             xcode-version: ["9.0.1", "9.3.1", "9.4.1", "10.0.0", "10.1.0", "10.2.1", "10.3.0", "11.0.0", "11.1.0", "11.2.0", "11.2.1", "11.3.0", "11.3.1", "11.4.0"]
