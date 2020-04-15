@@ -17,10 +17,4 @@ steps:
     - run:
         name: Installing Homebrew packages << parameters.packages >>
         command: |
-            if [ "<< parameters.analytics >>" = false ]; then
-                HOMEBREW_NO_ANALYTICS=1 >> $BASH_ENV
-            fi
-            if [ "<< parameters.auto-update >>" = false ]; then
-                HOMEBREW_NO_AUTO_UPDATE=1 >> $BASH_ENV
-            fi
-            brew install << parameters.packages >>
+            HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew install << parameters.packages >>
