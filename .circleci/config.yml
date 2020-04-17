@@ -1,20 +1,35 @@
 version: 2.1
-jobs:
-  verifyorb:
-    parameters:
-      xcodev:
-        description: "The Xcode version to use"
-        type: string
-    macos:
-      xcode: << parameters.xcodev >>
-    steps:
-      - run: uname -a
+
+orbs: 
+  orb-tools: circleci/orb-tools
+
+# jobs:
+#   verifyorb:
+#     parameters:
+#       xcodev:
+#         description: "The Xcode version to use"
+#         type: string
+#     macos:
+#       xcode: << parameters.xcodev >>
+#     steps:
+#       - run: uname -a
 
 workflows:
-  verify:
+  lint_pack-validate_publish-dev:
     jobs:
-      - verifyorb:
-          name: Xcode << matrix.xcodev >>
-          matrix:
-            parameters:
-              xcodev: ["9.0.1", "9.3.1", "9.4.1", "10.0.0", "10.1.0", "10.2.1", "10.3.0", "11.0.0", "11.1.0", "11.2.0", "11.2.1", "11.3.0", "11.3.1", "11.4.0"]
+      - orb-tools/lint
+      - orb-tools/pack:
+          requires:
+            - orb-tools/lint
+      - orb-tools/publish-dev:
+          orb-name: bytesguy/macos-orb
+          context: orb-publishing
+          requires:
+            - orb-tools/pack
+  # verify:
+  #   jobs:
+  #     - verifyorb:
+  #         name: Xcode << matrix.xcodev >>
+  #         matrix:
+  #           parameters:
+  #             xcodev: ["9.0.1", "9.3.1", "9.4.1", "10.0.0", "10.1.0", "10.2.1", "10.3.0", "11.0.0", "11.1.0", "11.2.0", "11.2.1", "11.3.0", "11.3.1", "11.4.0"]
