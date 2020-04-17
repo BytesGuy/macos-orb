@@ -20,7 +20,7 @@ steps:
           name: "Saving Gems to cache"
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
-             vendor/bundle
+            vendor/bundle
   - unless:
     condition: << parameters.cache >>
     steps:
