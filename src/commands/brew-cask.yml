@@ -2,8 +2,8 @@ description: |
   Installs the specified Homebrew Cask
 
 parameters:
-  package:
-    description: "Cask to install"
+    package:
+      description: "Cask to install"
       type: string
     auto-update:
       description: "Disable Homebrew auto updater"
