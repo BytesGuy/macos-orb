@@ -15,6 +15,6 @@ parameters:
     default: true
 steps:
   - run:
-    name: Installing Homebrew packages << parameters.packages >>
-    command: |
-      HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew install << parameters.packages >>
+      name: Installing Homebrew packages << parameters.packages >>
+      command: |
+        HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew install << parameters.packages >>

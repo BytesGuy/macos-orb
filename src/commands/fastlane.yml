@@ -20,10 +20,10 @@ parameters:
   #debug upload fastlane folder
 steps:
   - run:
-    name: "Fastlane: Running the << parameters.lane >> lane"
-    command: |
-      FL_OUTPUT_DIR="output" >> $BASH_ENV
-      bundle exec fastlane << parameters.lane >>
+      name: "Fastlane: Running the << parameters.lane >> lane"
+      command: |
+        FL_OUTPUT_DIR="output" >> $BASH_ENV
+        bundle exec fastlane << parameters.lane >>
   - when:
     condition: << parameters.store-output >>
     steps:

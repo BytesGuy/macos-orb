@@ -7,5 +7,5 @@ parameters:
     type: string
 steps:
   - run:
-    name: "Installing Ruby version << parameters.version >>"
-    command: ruby-install ruby-<< parameters.version >>
+      name: "Installing Ruby version << parameters.version >>"
+      command: ruby-install ruby-<< parameters.version >>

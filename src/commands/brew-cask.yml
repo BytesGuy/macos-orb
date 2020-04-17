@@ -13,6 +13,6 @@ parameters:
       type: boolean
 steps:
   - run:
-    name: Installing Homebrew Cask << parameters.package >>
-    command: |
-      HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew cask install << parameters.package >>
+      name: Installing Homebrew Cask << parameters.package >>
+      command: |
+        HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew cask install << parameters.package >>

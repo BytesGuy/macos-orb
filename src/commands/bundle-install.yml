@@ -11,19 +11,19 @@ steps:
     condition: << parameters.cache >>
     steps:
       - restore_cache:
-        name: "Restoring Gems from cache"
-        key: 1-gems-{{ checksum "Gemfile.lock" }}
+          name: "Restoring Gems from cache"
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
       - run:
-        name: "Installing Gems"
-        command: bundle check || bundle install --path vendor/bundle
+          name: "Installing Gems"
+          command: bundle check || bundle install --path vendor/bundle
       - save_cache:
-        name: "Saving Gems to cache"
-        key: 1-gems-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
+          name: "Saving Gems to cache"
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+             vendor/bundle
   - unless:
     condition: << parameters.cache >>
     steps:
       - run:
-        name: "Installing Gems"
-        command: bundle install --path vendor/bundle
+          name: "Installing Gems"
+          command: bundle install --path vendor/bundle

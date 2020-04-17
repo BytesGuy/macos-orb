@@ -7,5 +7,5 @@ parameters:
     type: string
 steps:
   - run:
-    name: "Installing Bundler version << parameters.version >>"
-    command: gem install bundler:<< parameters.version >>
+      name: "Installing Bundler version << parameters.version >>"
+      command: gem install bundler:<< parameters.version >>
