@@ -13,7 +13,7 @@ steps:
       - restore_cache:
         name: "Restoring Gems from cache"
         key: 1-gems-{{ checksum "Gemfile.lock" }}
-      - run: 
+      - run:
         name: "Installing Gems"
         command: bundle check || bundle install --path vendor/bundle
       - save_cache:
