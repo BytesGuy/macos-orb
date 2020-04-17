@@ -1,11 +1,11 @@
 description: |
-    Install the specified version of Ruby
+  Install the specified version of Ruby
 
 parameters:
-    version:
-        description: "Ruby version required"
-        type: string
+  version:
+    description: "Ruby version required"
+    type: string
 steps:
-    - run:
-        name: "Installing Ruby version << parameters.version >>"
-        command: ruby-install ruby-<< parameters.version >>
+  - run:
+    name: "Installing Ruby version << parameters.version >>"
+    command: ruby-install ruby-<< parameters.version >>

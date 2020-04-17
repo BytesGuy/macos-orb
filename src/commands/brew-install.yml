@@ -1,20 +1,20 @@
 description: |
-    Installs the specified packages via Homebrew
+  Installs the specified packages via Homebrew
 
 parameters:
-    packages:
-        description: "Packages to install"
-        type: string
-    auto-update:
-        description: "Disable Homebrew auto updater"
-        type: boolean
-        default: true
-    analytics:
-        description: "Disable Homebrew analytics"
-        type: boolean
-        default: true
+  packages:
+    description: "Packages to install"
+    type: string
+  auto-update:
+    description: "Disable Homebrew auto updater"
+    type: boolean
+    default: true
+  analytics:
+    description: "Disable Homebrew analytics"
+    type: boolean
+    default: true
 steps:
-    - run:
-        name: Installing Homebrew packages << parameters.packages >>
-        command: |
-            HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew install << parameters.packages >>
+  - run:
+    name: Installing Homebrew packages << parameters.packages >>
+    command: |
+      HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew install << parameters.packages >>

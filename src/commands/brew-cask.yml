@@ -1,17 +1,17 @@
 description: |
-    Installs the specified Homebrew Cask
+  Installs the specified Homebrew Cask
 
 parameters:
-    package:
-        description: "Cask to install"
-        type: string
+  package:
+    description: "Cask to install"
+      type: string
     auto-update:
-        description: "Disable Homebrew auto updater"
-        type: boolean
+      description: "Disable Homebrew auto updater"
+      type: boolean
     analytics:
-        description: "Disable Homebrew analytics"
-        type: boolean
+      description: "Disable Homebrew analytics"
+      type: boolean
 steps:
-    - run:
-        name: Installing Homebrew Cask << parameters.package >>
-        command: HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew cask install << parameters.package >>
+  - run:
+    name: Installing Homebrew Cask << parameters.package >>
+    command: HOMEBREW_NO_AUTO_UPDATE=<< parameters.auto-update >> HOMEBREW_NO_ANALYTICS=<< parameters.analytics >> brew cask install << parameters.package >>

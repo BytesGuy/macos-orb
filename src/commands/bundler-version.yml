@@ -1,11 +1,11 @@
 description: |
-    Installs the specified Bundler version
+  Installs the specified Bundler version
 
 parameters:
-    version:
-        description: "system"
-        type: string
+  version:
+    description: "system"
+    type: string
 steps:
-    - run:
-        name: "Installing Bundler version << parameters.version >>"
-        command: gem install bundler:<< parameters.version >>
+  - run:
+    name: "Installing Bundler version << parameters.version >>"
+    command: gem install bundler:<< parameters.version >>
